@@ -163,6 +163,15 @@ public class ValidationItemControllerV2 {
     @PostMapping("/add")
     public String addItemV3(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
+        /**
+         * 타입에러나 스프링 에러 발생 시
+         */
+        if(bindingResult.hasErrors()){
+            log.info("errors = {}", bindingResult);
+            //bindingResult 는 Model 에 따로 담지 않아도 자동으로 view 에 전달.
+            return "validation/v2/addForm";
+        }
+
         log.info("objectName={}", bindingResult.getObjectName());
         log.info("target={}", bindingResult.getTarget());
 
